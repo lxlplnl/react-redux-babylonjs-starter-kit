@@ -63,7 +63,7 @@ const ACTION_HANDLERS = {
       won: false,
       player: 1,
       playerPickPiece: true,
-      playerPickSquare: false
+      playerPickBase: false
     }
 
     console.log('game started', newState)
