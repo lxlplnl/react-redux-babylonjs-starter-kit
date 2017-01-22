@@ -21,7 +21,7 @@ export const GAME_WON = 'GAME_WON'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const startGame = () => ({ type: START_GAME})
+export const startGame = () => ({ type: START_GAME })
 
 export const boardPiecePicked = (piece) => ({
   type: BOARD_PIECE_PICKED,
@@ -58,7 +58,7 @@ const ACTION_HANDLERS = {
   [START_GAME]: (state, action) => {
     console.log('game start', action)
 
-    let newState = {...state,
+    let newState = { ...state,
       started: true,
       won: false,
       player: 1,
@@ -75,14 +75,14 @@ const ACTION_HANDLERS = {
       ...state,
       player1Name: action.player1Name,
       player2Name: action.player2Name,
-      playersChosen: true, 
+      playersChosen: true,
       // next 4 mimic a 'start_game'
       started: true,
       player: 1,
       playerPickPiece: true,
       playerPickBase: false
     }
-    
+
     console.log('players chosen', newState)
 
     return newState
@@ -91,7 +91,7 @@ const ACTION_HANDLERS = {
     const { piece } = action
 
     // player changes.
-    let newState = {...state,
+    let newState = { ...state,
       playerPickPiece: false,
       playerPickBase: true,
       player: ((state.player % 2) + 1)
@@ -102,18 +102,18 @@ const ACTION_HANDLERS = {
     return newState
   },
   [PLAYER_BASE_SELECTED]: (state, action) => {
-    const { base, boardPieces, winResult } = action
+    const { boardPieces, winResult } = action
 
     if (winResult.win) {
       // TODO: set winner name, it will be shown in React.
       console.log(`player ${state.player} won`, newState, action.base)
-      return {...state,
+      return { ...state,
         won: true,
         boardPieces: boardPieces
       }
     }
 
-    let newState = {...state,
+    let newState = { ...state,
       playerPickPiece: true,
       playerPickBase: false,
       boardPieces
@@ -128,15 +128,13 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = {  
+const initialState = {
   started: false,
   playersChosen: false,
   player1Name: undefined,
   player2Name: undefined,
   won: false
 }
-
-let lastState = initialState
 
 export default function quartoReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]

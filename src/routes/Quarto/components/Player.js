@@ -1,11 +1,10 @@
 export default class Player {
-    constructor(name, color) {
+  constructor (name, color) {
+    this.name = name
 
-        this.name = name;
+    // The player color
+    this.color = color
 
-        // The player color
-        this.color = color;
-
-        this.pieces = [];
-    };
+    this.pieces = []
+  }
 }
