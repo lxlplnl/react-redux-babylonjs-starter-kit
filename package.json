@@ -52,7 +52,8 @@
       "command": "npm run deploy",
       "env": {
         "NODE_ENV": "production",
-        "DEBUG": "app:*"
+        "DEBUG": "app:*",
+        "BASENAME": "/react-redux-babylonjs-starter-kit/"
       }
     },
     "start": {
@@ -93,6 +94,7 @@
     "extract-text-webpack-plugin": "^1.0.0",
     "file-loader": "^0.9.0",
     "fs-extra": "^1.0.0",
+    "history": "^3.2.1",
     "howler": "^2.0.2",
     "html-webpack-plugin": "^2.22.0",
     "imports-loader": "^0.7.0",
