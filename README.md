@@ -36,9 +36,9 @@ You can see a full working demo here, which is a copy of /dist/ folder generated
 ```sh
 $ npm run deploy:prod
 ```
-![Starter Kit Demo](https://brianzinn.github.io/react-redux-babylonjs-starter-kit/)
+[Starter Kit Demo](https://brianzinn.github.io/react-redux-babylonjs-starter-kit/)
 
-If everything works, you should see the following:
+If everything works, you should see the following (shown here with Redux devtools):
 ![Quarto Screenshot](https://raw.githubusercontent.com/brianzinn/react-redux-babylonjs-starter-kit/master/quarto_screenshot.png)
 
 It only takes a few minutes to get it running on your own machine...
