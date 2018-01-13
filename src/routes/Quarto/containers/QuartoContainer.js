@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import { actions as quartoActions } from '../modules/quarto'
-import { debugOn, debugOff } from 'react-babylonjs'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -37,4 +36,4 @@ const mapStateToProps = (state) => ({
     Selectors are composable. They can be used as input to other selectors.
     https://github.com/reactjs/reselect    */
 
-export default connect(mapStateToProps, { ...quartoActions, debugOn, debugOff })(Quarto)
+export default connect(mapStateToProps, { ...quartoActions })(Quarto)

@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import { HemisphericLight, PointLight, Vector3, Color3, PhysicsEngine, OimoJSPlugin,
     StandardMaterial, Mesh, CubeTexture, ArcRotateCamera, Texture } from 'babylonjs'
 import { Scene, registerHandler, removeHandler } from 'react-babylonjs'
-import { Howl } from 'howler'
 
 import classes from './Quarto.scss'
 
@@ -18,6 +17,8 @@ import PickIconImage from '../assets/pick_icon.png'
 import PutIconImage from '../assets/put_icon.png'
 
 import { START_GAME, PLAYER_PIECE_SELECTED, PLAYER_BASE_SELECTED, GAME_WON } from '../modules/quarto'
+
+import 'babylonjs-inspector';
 
 export default class Quarto extends Component {
   constructor (props) {
@@ -50,27 +51,21 @@ export default class Quarto extends Component {
     this.boardPiecePicked = props.boardPiecePicked
     this.boardBasePicked = props.boardBasePicked
 
-    // BabylonJS actions
-    console.log('debug methods', props.debugOn, props.debugOff, props)
-    this.debugOn = props.debugOn
-    this.debugOff = props.debugOff
     this.debugEnabled = false
-
-    this.sound = new Howl({
-      src: ['sfx/boom1.wav']
-    })
   }
 
   toggleDebug () {
-    if (this.debugEnabled) {
-      this.debugOff()
+    if (!this.debugEnabled) {
+      this.scene.debugLayer.show({
+        popup:true
+      });
     } else {
-      this.debugOn()
+      this.scene.debugLayer.hide();
     }
     this.debugEnabled = !this.debugEnabled
   }
 
-      // was 'forward' in QUARTO
+  // was 'forward' in QUARTO
   onPlayersChosen () {
     var name1 = this.player1.value || 'Player 1'
     var name2 = this.player2.value || 'Player 2'
@@ -150,6 +145,7 @@ export default class Quarto extends Component {
   onSceneMount (e) {
     const { canvas, scene, engine } = e
     this.scene = scene
+    this.sound = new BABYLON.Sound('', 'sfx/boom1.wav', scene)
 
     let lights = this.initEnvironment(canvas, scene)
 
@@ -175,6 +171,11 @@ export default class Quarto extends Component {
     }
 
     this.setupNewGame()
+
+    // can't explain this right now, but needed it after 2.5 udpate to 3.2-alpha.  Will look at later.
+    window.setTimeout(() => {
+      engine.resize()
+    }, 10)
 
     engine.runRenderLoop(() => {
       if (scene) {
@@ -374,6 +375,7 @@ export default class Quarto extends Component {
               onMeshPicked={this.onMeshPicked}
               onFocus={this.onFocus}
               onBlur={this.onBlur}
+              id='quartoCanvas'
               shadersRepository={'/shaders/'}
               visible={quartoState.started === true} />
             <div id='title'>
@@ -491,7 +493,5 @@ Quarto.propTypes = {
   playersChosen: PropTypes.func.isRequired,
   boardPiecePicked: PropTypes.func.isRequired,
   boardBasePicked: PropTypes.func.isRequired,
-  debugOn: PropTypes.func.isRequired,
-  debugOff: PropTypes.func.isRequired,
   quartoState: PropTypes.object.isRequired
 }
